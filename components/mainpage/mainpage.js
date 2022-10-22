@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import MapView, {Marker} from 'react-native-maps'
+import { StatusBar } from 'expo-status-bar';
 import * as Location from 'expo-location'
 import {locdata} from './locdata'
 import {
@@ -13,8 +14,16 @@ import {
   TouchableOpacity,
   Animated,
 } from 'react-native';
+import app from '../../config/firebase';
+import { AuthenticatedUserContext } from '../../navigation/authenticatedUserProvider';
+import { getAuth ,signOut } from 'firebase/auth';
+import { IconButton } from '../../utils';
+
+
 
 const cancel = require('./img/cancel.png')
+
+const auth = getAuth(app);
 
 // get user current location and update map
 const userLocation = async () => {
@@ -110,7 +119,7 @@ const App1 = () => {
         style={styles.map}
         region={mapRegion}
       >
-          {locdata.map((val, i) => {
+          {/* {locdata.map((val, i) => {
             return(
               <Marker
                 key={val.id}
@@ -129,7 +138,7 @@ const App1 = () => {
 
               />
             )
-          })}
+          })} */}
         {/* <Button title = 'Get Current Location' onPress={userLocation}/> */}
       </MapView>
     </View>
@@ -182,6 +191,47 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     flexDirection:'row',
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 24
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#fff'
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: 'normal',
+    color: '#fff'
+  }
 });
 
-export default App1;
+export default function MainPage() {
+  const { user } = useContext(AuthenticatedUserContext);
+  const handleSignOut = async () => {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+    })
+  };
+  return (
+    <View style={styles.container}>
+      <StatusBar style='dark-content' />
+      <View style={styles.row}>
+        <Text style={styles.title}>Welcome {user.email}!</Text>
+        <App1/>
+        <IconButton
+          name='logout'
+          size={24}
+          color='#fff'
+          onPress={handleSignOut}
+        />
+      </View>
+      
+      <Text style={styles.text}>Your UID is: {user.uid} </Text>
+    </View>
+  );
+}
