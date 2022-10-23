@@ -71,6 +71,7 @@ function App1({navigation}) {
 
   const [visible, setVisible] = React.useState(false);
   const [building, setBuilding] = React.useState("");
+  const [buildingshort, setBuildingshort] = React.useState("");
   const [buildingimg, setBuildingimg] = React.useState("");
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -111,7 +112,10 @@ function App1({navigation}) {
               marginBottom: 24
             }} onPress={() => {
               setVisible(false);
-              navigation.navigate('Serious')}}/>
+              navigation.navigate('Serious', {
+                buildingname: buildingshort,
+                otherParam: 'anything you want here',
+              });}}/>
           </View>
         </View>
       </ModalPoup>
@@ -131,6 +135,7 @@ function App1({navigation}) {
                   setVisible(true);
                   setBuildingimg(val.buildingImg);
                   setBuilding(val.title);
+                  setBuildingshort(val.short)
                   setMapRegeion({
                     latitude: val.coords.latitude,
                     longitude: val.coords.longitude,
