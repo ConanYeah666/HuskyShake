@@ -2,12 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
 import { StyleSheet, Text, View, Button as RNButton, Image } from 'react-native';
-
+import { getFirestore,  collection, getDocs, addDoc  } from "firebase/firestore";
 import { Button, ErrorMessage, IconButton,  InputText } from '../../utils';
 import app from '../../config/firebase';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 export default function LoginPage({ navigation }) {
   const [email, setEmail] = useState('');
@@ -26,8 +27,14 @@ export default function LoginPage({ navigation }) {
     }
   };
 
+  
+
   const onLogin = async () => {
     try {
+      const querySnapshot = await getDocs(collection(db, "userLogin"));
+querySnapshot.forEach((doc) => {
+  console.log(`${doc.data()} => ${doc.data().first}`);
+});
       if (email !== '' && password !== '') {
         await signInWithEmailAndPassword(auth, email, password);
       }

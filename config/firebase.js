@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -14,8 +13,7 @@ const firebaseConfig = {
   storageBucket: "huskyshack-df767.appspot.com",
   messagingSenderId: "580332296984",
   appId: "1:580332296984:web:4b682fa05fa1bde4f2dc6d",
-  measurementId: "G-ZEYYX29PTE",
-  databaseURL: "https://huskyshack-df767-default-rtdb.firebaseio.com/",
+  measurementId: "G-ZEYYX29PTE"
 };
 
 // Initialize Firebase

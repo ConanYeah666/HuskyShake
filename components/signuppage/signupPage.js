@@ -4,9 +4,11 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, Button as RNButton, Image } from 'react-native';
 import { Button, InputText, IconButton, ErrorMessage } from '../../utils';
 import app from '../../config/firebase';
-
+import { getFirestore,  collection, getDocs  } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 export default function SignupPage({ navigation }) {
   const [email, setEmail] = useState('');
@@ -14,6 +16,7 @@ export default function SignupPage({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
   const [signupError, setSignupError] = useState('');
+  
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
@@ -27,6 +30,7 @@ export default function SignupPage({ navigation }) {
 
   const onHandleSignup = async () => {
     try {
+      
       if (email !== '' && password !== '') {
         await createUserWithEmailAndPassword(auth, email, password);
       }
