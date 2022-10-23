@@ -10,78 +10,76 @@ import {
   Animated,
   ImageBackground
 } from 'react-native';
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, Timestamp } from "firebase/firestore";
 import app from '../../config/firebase';
 import { route, navigation } from '@react-navigation/native';
 import { SwipeableCards, BORDER_RADIUS } from 'react-native-pairs-swipeable-cards';
 import { StatusBar } from 'expo-status-bar';
+import React, {useEffect}from 'react';
+import { BottomNavigationTab } from '@ui-kitten/components';
+import { stringLength } from '@firebase/util';
+
 
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
-import React from 'react';
+const initialList = [{
+  id: '',
+      isActive: true,
+      name: '',
+      age: 5,
+      place: '',
+      rate: 64,
+      tags: [''],
+      Description: ''
+}]
+var count = 0;
+const read = async (building, list, setList) => {
+  const querySnapshot = await getDocs(collection(db, building)) ;
+  querySnapshot.forEach((doc) => {
+    setList(oldList => [...oldList, {
+      id: doc.id + '',
+      isActive: true,
+      name: doc.data().userid,
+      age: 5,
+      place: doc.data().title,
+      rate: 64,
+      tags: doc.data().tag,
+      Description: doc.data().content
+    }]);
+});
+};
 
-function CasualBoard() {
-const data = [
-  {
-    id: 'misono',
-    isActive: true,
-    name: '高村美園',
-    age: 25,
-    place: '神奈川県',
-    rate: 64,
-    tags: ['読書好き', '友達みたいな恋人が・・・', '気ままにドライブに行きたい!'],
-    Text: "I like your father"
-  },
-  {
-    id: 'arisa',
-    isActive: false,
-    name: '須藤亜里沙',
-    age: 24,
-    place: '福岡県',
-    rate: 64,
-    tags: ['読書好き', '友達みたいな恋人が・・・', '気ままにドライブに行きたい!'],
-    Text: "I like your mother"
-  },
-  {
-    id: 'sasaki',
-    isActive: false,
-    name: '佐々木涼平',
-    age: 24,
-    place: '東京都',
-    rate: 64,
-    tags: ['読書好き', '友達みたいな恋人が・・・', '気ままにドライブに行きたい!'],
-    Text: "I like your mother"
-  },
-  {
-    id: 'tsugumi',
-    isActive: true,
-    name: '川本つぐみ',
-    age: 24,
-    place: '東京都',
-    rate: 64,
-    tags: ['読書好き', '友達みたいな恋人が・・・', '気ままにドライブに行きたい!'],
-    Text: "I like your mother"
-  },
-];
+function CasualBoard({route}) {
 
+  const [list, setList] = React.useState(initialList);
+  const { buildingname } = route.params;
+  // write("test33", "content33", "title33", buildingname);
+  useEffect(() => {
+    async function getData() {
+      await read(buildingname, list, setList);
+    }
+    getData();
+  }, []);
+  console.log(list)
   // find();
   // read();
-
   return(
     <View style={styles.container}>
-      <SwipeableCards
-        data={data}
+      <SwipeableCards 
+        data={list}
         onLike={() => console.log('Like!')}
         onSkip={() => console.log('Skip')}
+        onLikeWithMessage = {() => console.log("Post") }
         renderItem={(item, index) => (
-          <View>
+          <View style = { { width: '100%', height: '100%', backgroundColor: '#4b2e83'}}>
+            {console.log(item.id)}
             <Text style={{
-                  color: '#00000',
+                  color: '#b7a57a',
                   fontWeight: 'bold',
                   fontSize: 32,
                   marginVertical: '50%',
                   marginHorizontal: '5%'
-                }}>What the fucking thing is that? </Text>
+                }}>{item.Description} </Text>
             <View
               style={{
                 flexDirection: 'row',
@@ -101,7 +99,7 @@ const data = [
               />
               <Text
                 style={{
-                  color: '#00000',
+                  color: '#b7a57a',
                   fontWeight: 'bold',
                   fontSize: 32,
                 }}
@@ -119,7 +117,7 @@ const data = [
             >
               <Text
                 style={{
-                  color: '#00000',
+                  color: '#b7a57a',
                   fontWeight: 'bold',
                   fontSize: 16,
                   marginRight: 10,
@@ -129,7 +127,7 @@ const data = [
               </Text>
               <Text
                 style={{
-                  color: '#00000',
+                  color: '#b7a57a',
                   fontWeight: 'bold',
                   fontSize: 16,
                   marginRight: 10,
@@ -139,12 +137,11 @@ const data = [
               </Text>
               <Text
                 style={{
-                  color: '#00000',
+                  color: '#b7a57a',
                   fontWeight: 'bold',
                   fontSize: 16,
                 }}
               >
-                {`♡${item.rate}%`}
               </Text>
             </View>
             <View
@@ -162,12 +159,12 @@ const data = [
                     paddingHorizontal: 10,
                     borderRadius: 6,
                     marginRight: 6,
-                    backgroundColor: '#00000',
+                    backgroundColor: '#fff',
                   }}
                 >
                   <Text
                     style={{
-                      color: '#000000',
+                      color: '#b7a57a',
                       fontSize: 8,
                       fontWeight: 'bold',
                     }}
@@ -184,30 +181,10 @@ const data = [
     </View>
   );
 }
-
-const read = async () => {
-    const querySnapshot = await getDocs(collection(db, "casualboard"));
-    querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data().title}`);
-  });
-};
-
-const write = async (bname, bcontent, btitle) => {
-  try {
-    const docRef = await addDoc(collection(db, "casualboard"), {
-      buildingname: bname,
-      content: bcontent,
-      title: btitle
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0000',
+    backgroundColor: '#DCDCDC',
     alignItems: 'center',
     justifyContent: 'center',
   },
