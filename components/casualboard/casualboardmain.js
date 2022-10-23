@@ -109,12 +109,15 @@ const [list, setList] = React.useState(initialList);
             <Text style={{
                   color: '#b7a57a',
                   fontWeight: 'bold',
-                  fontSize: 32,
-                  marginVertical: '30%',
-                  marginHorizontal: '5%'
+                  fontSize: 40,
+                  marginVertical: '10%',
+                  marginHorizontal: '20%',
+                  alignItems: 'center'
                 }}>{item.Description} </Text>
             <View
               style={{
+                marginVertical: '0%',
+                marginHorizontal: '20%',
                 flexDirection: 'row',
                 alignItems: 'center',
                 paddingHorizontal: 16,
@@ -126,6 +129,7 @@ const [list, setList] = React.useState(initialList);
                   width: 16,
                   height: 16,
                   borderRadius: 25,
+                  alignItems: 'center',
                   backgroundColor: item.isActive ? '#2cd26b' : '#cc0033',
                   marginRight: 8,
                 }}
@@ -134,6 +138,7 @@ const [list, setList] = React.useState(initialList);
                 style={{
                   color: '#b7a57a',
                   fontWeight: 'bold',
+                  
                   fontSize: 32,
                 }}
               >
@@ -144,6 +149,7 @@ const [list, setList] = React.useState(initialList);
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
+                marginHorizontal: '20%',
                 paddingHorizontal: 16,
                 marginBottom: 8,
               }}
@@ -152,7 +158,7 @@ const [list, setList] = React.useState(initialList);
                 style={{
                   color: '#b7a57a',
                   fontWeight: 'bold',
-                  fontSize: 16,
+                  fontSize: 20,
                   marginRight: 10,
                 }}
               >
@@ -162,7 +168,7 @@ const [list, setList] = React.useState(initialList);
                 style={{
                   color: '#b7a57a',
                   fontWeight: 'bold',
-                  fontSize: 16,
+                  fontSize: 20,
                   marginRight: 10,
                 }}
               >
@@ -182,6 +188,7 @@ const [list, setList] = React.useState(initialList);
                 flexDirection: 'row',
                 alignItems: 'center',
                 paddingHorizontal: 16,
+                marginHorizontal: '20%',
               }}
             >
               {item.tags.map(tag => (
@@ -198,7 +205,7 @@ const [list, setList] = React.useState(initialList);
                   <Text
                     style={{
                       color: '#b7a57a',
-                      fontSize: 8,
+                      fontSize: 20,
                       fontWeight: 'bold',
                     }}
                   >
