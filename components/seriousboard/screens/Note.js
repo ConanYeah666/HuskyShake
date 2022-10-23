@@ -22,7 +22,6 @@ import colors from '../misc/colors';
 
 function Note ({ item, onPress }) {
     const { title, desc } = item;
-    
     return (
         <TouchableOpacity onPress={onPress} style={styles.container}>
         <Text style={styles.title} numberOfLines={2}>

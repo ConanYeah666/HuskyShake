@@ -13,7 +13,7 @@ const formatDate = ms => {
     const hrs = date.getHours();
     const min = date.getMinutes();
     const sec = date.getSeconds();
-  
+
     return `${day}/${month}/${year} - ${hrs}:${min}:${sec}`;
   };
 
