@@ -10,7 +10,7 @@ import {
   Animated,
   ImageBackground
 } from 'react-native';
-import { getFirestore, collection, getDocs, addDoc, Timestamp } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, Timestamp, CollectionReference } from "firebase/firestore";
 import app from '../../config/firebase';
 import { route, navigation } from '@react-navigation/native';
 import { SwipeableCards, BORDER_RADIUS } from 'react-native-pairs-swipeable-cards';
@@ -22,29 +22,29 @@ import { stringLength } from '@firebase/util';
 
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
-const initialList = [{
-  id: '',
-      isActive: true,
-      name: '',
-      age: 5,
-      place: '',
-      rate: 64,
-      tags: [''],
-      Description: ''
+const initialList = [
+  {id: '',
+    isActive: true,
+    name: '',
+    age: 1,
+    place: '',
+    rate: 1,
+    tags:  ['']
 }]
 var count = 0;
 const read = async (building, list, setList) => {
-  const querySnapshot = await getDocs(collection(db, building)) ;
+  const querySnapshot = await getDocs(collection(db, building));
   querySnapshot.forEach((doc) => {
+
     setList(oldList => [...oldList, {
       id: doc.id + '',
       isActive: true,
-      name: doc.data().userid,
+      name: doc.data().userid + '',
       age: 5,
-      place: doc.data().title,
+      place: doc.data().title + '',
       rate: 64,
-      tags: doc.data().tag,
-      Description: doc.data().content
+      tags: doc.data().tag + '',
+      Description: doc.data().content + ''
     }]);
 });
 };
@@ -60,9 +60,9 @@ function CasualBoard({route}) {
     }
     getData();
   }, []);
-  console.log(list)
   // find();
   // read();
+  list = JSON.stringify(list)
   return(
     <View style={styles.container}>
       <SwipeableCards 
@@ -72,7 +72,7 @@ function CasualBoard({route}) {
         onLikeWithMessage = {() => console.log("Post") }
         renderItem={(item, index) => (
           <View style = { { width: '100%', height: '100%', backgroundColor: '#4b2e83'}}>
-            {console.log(item.id)}
+            {console.log(item)}
             <Text style={{
                   color: '#b7a57a',
                   fontWeight: 'bold',
