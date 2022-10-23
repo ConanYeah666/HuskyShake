@@ -241,17 +241,6 @@ export default function MainPage({navigation}) {
     <View style={styles.container}>
       <StatusBar style='dark-content' />
       <App1 navigation={navigation}/>
-      <View style={styles.row}>
-        <Text style={styles.title}>Welcome {user.email}!</Text>
-        <IconButton
-          name='logout'
-          size={24}
-          color='#000000'
-          onPress={handleSignOut}
-        />
-      </View>
-
-      <Text style={[styles.text, styles.bottom]}>Your UID is: {user.uid} </Text>
     </View>
   );
 }

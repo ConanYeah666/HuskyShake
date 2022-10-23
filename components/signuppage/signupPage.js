@@ -79,7 +79,7 @@ export default function SignupPage({ navigation }) {
           backgroundColor: '#fff',
           marginBottom: 20
         }}
-        leftIcon='user'
+        leftIcon= 'card-account-details'
         placeholder='Enter UserName'
         autoCapitalize='none'
         autoFocus={true}
