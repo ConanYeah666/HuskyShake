@@ -1,6 +1,5 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
 
 import NoteScreen from '../components/seriousboard/screens/NoteScreen';
 import NoteDetail from '../components/seriousboard/screens/NoteDetail';
@@ -13,12 +12,11 @@ const Stack = createNativeStackNavigator();
 export default function HomeStack() {
   return (
     <Stack.Navigator headerMode='none'>
-      {/* <Stack.Screen name='Home' component={App1} /> */}
-      <Stack.Screen name='NoteScreen' component={NoteScreen} />
+      <Stack.Screen name='Home' component={App1} />
+      <Stack.Screen name='Serious' component={NoteScreen} />
       <Stack.Screen name='NoteDetail' component={NoteDetail} />
-      {/* <Stack.Screen name='Serious' component={SeriousBoard} />
-      <Stack.Screen name='Casual' component={CasualBoard} /> */}
-      
+      {/* <Stack.Screen name='Serious' component={SeriousBoard} /> */}
+      <Stack.Screen name='Casual' component={CasualBoard} />
     </Stack.Navigator>
   );
 }
