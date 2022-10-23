@@ -14,7 +14,8 @@ const firebaseConfig = {
   storageBucket: "huskyshack-df767.appspot.com",
   messagingSenderId: "580332296984",
   appId: "1:580332296984:web:4b682fa05fa1bde4f2dc6d",
-  measurementId: "G-ZEYYX29PTE"
+  measurementId: "G-ZEYYX29PTE",
+  databaseURL: "https://huskyshack-df767-default-rtdb.firebaseio.com/",
 };
 
 // Initialize Firebase

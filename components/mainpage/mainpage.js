@@ -97,21 +97,32 @@ const App1 = () => {
             <TouchableOpacity onPress={() => setVisible(false)}>
               <Image
                 source={cancel}
-                style={{height: 40, width: 40}}
+                style={{height: 40, width: 40 }}
               />
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{alignItems: 'left', flexDirection:'row'}}>
+        <View style={{height: '40%',wide: 0,alignItems: 'center', flexDirection:'row'}}>
           <Image
             source={buildingimg}
-            style={{height: 183, width: 244, marginVertical: 10, borderRadius: 20, borderColor: '#452A77', borderWidth: 5,}}
+            style={{height: '120%', width: '60%', marginVertical: '50%', marginHorizontal:'20%', borderRadius: 20, borderColor: '#452A77', borderWidth: 5,}}
           />
-            <Text style={{marginHorizontal: 19, marginVertical: 10, fontSize: 30, textAlign: 'left', width: '50%'}}>{building}</Text>
         </View>
+        <Text style={{marginHorizontal: 0, marginVertical: "7%", fontSize: 20, textAlign: 'center', width: '100%'}}>{building}</Text>
         <View style={{flexDirection: 'row'}}>
-          <View style={styles.button}><Button title='Casual Board' onPress={userLocation}/></View>
-          <View style={styles.button}><Button title='Serious Board' onPress={userLocation}/></View>
+          <View style={styles.button}><Button backgroundColor='#b7a57a'
+        title='casual board'
+        tileColor='#fff'
+        titleSize={10}
+        containerStyle={{marginBottom: 10}} 
+        onPress={userLocation}/></View>
+        <View style={styles.button}><Button backgroundColor='#b7a57a'
+        title='serious board'
+        tileColor='#fff'
+        titleSize={10}
+        containerStyle={{
+          marginBottom: 24
+        }} onPress={userLocation}/></View>
         </View>
       </ModalPoup>
       {/* Map */}
@@ -119,7 +130,7 @@ const App1 = () => {
         style={styles.map}
         region={mapRegion}
       >
-          {/* {locdata.map((val, i) => {
+          {locdata.map((val, i) => {
             return(
               <Marker
                 key={val.id}
@@ -138,7 +149,7 @@ const App1 = () => {
 
               />
             )
-          })} */}
+          })}
         {/* <Button title = 'Get Current Location' onPress={userLocation}/> */}
       </MapView>
     </View>
@@ -153,19 +164,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContainer: {
-    width: '50%',
-    height: '60%',
+    width: '80%',
+    height: '80%',
     backgroundColor: '#F8F8F8',
     paddingHorizontal: 20,
     paddingVertical: 30,
-    borderRadius: 20,
+    borderRadius: 40,
     borderColor: '#452A77',
     borderWidth: 10,
     elevation: 20,
   },
   header: {
     width: '100%',
-    height: 40,
+    height: '10%',
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
@@ -182,30 +193,31 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 50,
-    marginHorizontal: 30,
+    marginVertical: 10,
+    marginHorizontal: '11.5%',
     paddingVertical: 10,
-    paddingHorizontal: 32,
+    paddingHorizontal: '5%',
     borderRadius: 10,
     elevation: 3,
-    backgroundColor: 'black',
+    backgroundColor: '#4b2e83',
     flexDirection:'row',
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginHorizontal: '10%',
     marginBottom: 24
   },
   title: {
     fontSize: 24,
     fontWeight: '600',
-    color: '#fff'
+    color: '#000000'
   },
   text: {
     fontSize: 16,
     fontWeight: 'normal',
-    color: '#fff'
+    color: '#000000'
   }
 });
 
@@ -220,17 +232,16 @@ export default function MainPage() {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
+      <App1/>
       <View style={styles.row}>
         <Text style={styles.title}>Welcome {user.email}!</Text>
-        <App1/>
         <IconButton
           name='logout'
           size={24}
-          color='#fff'
+          color='#000000'
           onPress={handleSignOut}
         />
       </View>
-      
       <Text style={styles.text}>Your UID is: {user.uid} </Text>
     </View>
   );
