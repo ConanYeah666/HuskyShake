@@ -21,54 +21,40 @@ import RoundIconBtn from './RoundIconBtn';
 import NoteInputModal from './NoteInputModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Note from './Note';
+// import app from '../../config/firebase';
+import { getAuth } from 'firebase/auth';
+
 
 // Initialize Cloud Firestore and get a reference to the service
+const auth = getAuth(app);
 const db = getFirestore(app);
 const initialList = [];
 
 function NoteScreen ({navigation, route}) {
+    // console.log();
     const [list, setList] = React.useState(initialList);
     const { buildingname } = route.params;
     // write("test33", "content33", "title33", buildingname);
     useEffect(() => {
-      // findNotes()
       async function getData() {
-        await read(buildingname, list, setList);
-      }
-      async function setData() {
-        await deploy();
+        await read(buildingname);
       }
       getData();
-      setData();
     }, []);
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [notes, setNotes] = useState([]);
 
-    const read = async (building, list, setList) => {
+    const read = async (building) => {
       const querySnapshot = await getDocs(collection(db, building));
       querySnapshot.forEach((doc) => {
         setList(oldList => [...oldList, doc.data()]);
-    });
+      });
+    };
 
-
-  };
-  const deploy = async () => {
-    list.forEach((data) => {
-      const title = data.title;
-      const desc = data.content;
-      const note = { id: Date.now(), title, desc, time: Date.now() };
-      // const updatedNotes = [...notes, note];
-      setNotes(notes => [...notes, note]);
-    })
-    await AsyncStorage.setItem('notes', JSON.stringify(updatedNotes));
-  };
-
-  const write = async (bname, bcontent, btitle, buildingname) => {
+  const write = async (bcontent, btitle, buildingname) => {
     try {
       const docRef = await addDoc(collection(db, buildingname), {
-        userid: 123,
-        buildingname: bname,
+        userid: auth.currentUser.email,
         content: bcontent,
         title: btitle,
         date: Timestamp.now(),
@@ -79,12 +65,10 @@ function NoteScreen ({navigation, route}) {
     }
   };
 
-
     const handleOnSubmit = async (title, desc) => {
-        const note = { id: Date.now(), title, desc, time: Date.now() };
-        const updatedNotes = [...notes, note];
-        setNotes(updatedNotes);
-        await AsyncStorage.setItem('notes', JSON.stringify(updatedNotes));
+        await write(desc, title, buildingname);
+        setList([]);
+        await read(buildingname);
     };
 
     const openNote = note => {
@@ -95,21 +79,15 @@ function NoteScreen ({navigation, route}) {
           <>
           <StatusBar barStyle='dark-content' backgroundColor={colors.LIGHT}/>
           <View style = {styles.container}>
-          <View>
-            {/* <Text>{buildingname}</Text>
-              {list.map(data => (
-                <Text>{data.content}</Text>
-              ))} */}
-          </View>
             <Text style={styles.header}>Hello</Text>
             <FlatList
-                data={notes}
+                data={list}
                 numColumns={2}
                 columnWrapperStyle={{
                     justifyContent: 'space-between',
                     marginBottom: 15,
                 }}
-                keyExtractor={item => item.id.toString()}
+                keyExtractor={item => list.data}
                 renderItem={({ item }) => <Note onPress={() => openNote(item)} item = {item}/>}
             />
         </View>

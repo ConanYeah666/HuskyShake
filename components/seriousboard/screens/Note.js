@@ -21,13 +21,12 @@ import colors from '../misc/colors';
 // };
 
 function Note ({ item, onPress }) {
-    const { title, desc } = item;
     return (
         <TouchableOpacity onPress={onPress} style={styles.container}>
         <Text style={styles.title} numberOfLines={2}>
-          {title}
+          {item.title}
         </Text>
-        <Text numberOfLines={3}>{desc}</Text>
+        <Text numberOfLines={3}>{item.content}</Text>
         </TouchableOpacity>
     );
   };

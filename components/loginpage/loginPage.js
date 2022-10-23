@@ -27,14 +27,12 @@ export default function LoginPage({ navigation }) {
     }
   };
 
-  
-
   const onLogin = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "userLogin"));
-querySnapshot.forEach((doc) => {
-  console.log(`${doc.data()} => ${doc.data().first}`);
-});
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.data()} => ${doc.data().first}`);
+    });
       if (email !== '' && password !== '') {
         await signInWithEmailAndPassword(auth, email, password);
       }

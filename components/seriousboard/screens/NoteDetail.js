@@ -23,7 +23,7 @@ export default function NoteDetail(props) {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.time}>{`Created At ${formatDate(note.time)}`}</Text>
       <Text style={styles.title}>{note.title}</Text>
-      <Text style={styles.note}>{note.desc}</Text>
+      <Text style={styles.note}>{note.content}</Text>
     </ScrollView>
   )
 }
