@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useContext} from 'react'
-import MapView, {Marker} from 'react-native-maps'
+import React, {useState, useEffect, useContext} from 'react';
+import MapView, {Marker} from 'react-native-maps';
 import { StatusBar } from 'expo-status-bar';
-import {locdata} from './locdata'
+import {locdata} from './locdata';
+import * as Location from 'expo-location';
 import {
   View,
   StyleSheet,
@@ -17,7 +18,6 @@ import {
 import app from '../../config/firebase';
 import { AuthenticatedUserContext } from '../../navigation/authenticatedUserProvider';
 import { getAuth ,signOut } from 'firebase/auth';
-import { IconButton } from '../../utils';
 // import {  } from 'react-native-web';
 const image = { uri: "https://t3.ftcdn.net/jpg/02/08/49/42/360_F_208494280_y6AlM0pJQXMSytDJ1jy77B28tJ69ghoU.jpg" };
 
@@ -49,6 +49,10 @@ const ModalPoup = ({visible, children}) => {
       }).start();
     }
   };
+
+
+
+
   return (
     <Modal transparent visible={showModal}>
       <View style={styles.modalBackGround}>
@@ -68,6 +72,32 @@ function App1({navigation}) {
     latitudeDelta: 0.006,
     longitudeDelta: 0.006,
   });
+
+  const [r, setR] = useState({
+    latitude: 47.65440627742146,
+    longitude: -122.30476957834502,
+    latitudeDelta: 0.006,
+    longitudeDelta: 0.006,
+  });
+
+  const userLocation = async (setR) => {
+    let {status} = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      setErrorMsg('Permission to access location was denied');
+    }
+    let location = await Location.getCurrentPositionAsync({enableHighAccuracy:true});
+    console.log(location.coords.latitude);
+    console.log(location.coords.longitude);
+    setR({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      latitudeDelta: 0.006,
+			longitudeDelta: 0.006,
+    });
+  }
+  useEffect(() => {
+    userLocation();
+  }, [])
 
   const [visible, setVisible] = React.useState(false);
   const [building, setBuilding] = React.useState("");
@@ -126,6 +156,8 @@ function App1({navigation}) {
         style={styles.map}
         region={mapRegion}
       >
+        <Button title='Get Location' onPress={async() => {userLocation(setR)}}></Button>
+        <Marker coordinate={r}/>
           {locdata.map((val) => {
             return(
               <Marker
