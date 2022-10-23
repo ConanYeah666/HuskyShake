@@ -2,8 +2,6 @@ import React, {useState, useEffect, useContext} from 'react'
 import MapView, {Marker} from 'react-native-maps'
 import { StatusBar } from 'expo-status-bar';
 import {locdata} from './locdata'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   View,
   StyleSheet,
@@ -14,16 +12,18 @@ import {
   Text,
   TouchableOpacity,
   Animated,
+  ImageBackground
 } from 'react-native';
 import app from '../../config/firebase';
 import { AuthenticatedUserContext } from '../../navigation/authenticatedUserProvider';
 import { getAuth ,signOut } from 'firebase/auth';
 import { IconButton } from '../../utils';
+// import {  } from 'react-native-web';
+const image = { uri: "https://t3.ftcdn.net/jpg/02/08/49/42/360_F_208494280_y6AlM0pJQXMSytDJ1jy77B28tJ69ghoU.jpg" };
 
 const cancel = require('./img/cancel.png')
 
 const auth = getAuth(app);
-
 
 // the model
 const ModalPoup = ({visible, children}) => {
@@ -94,10 +94,10 @@ function App1({navigation}) {
             style={{height: '120%', width: '60%', marginVertical: '50%', marginHorizontal:'20%', borderRadius: 20, borderColor: '#452A77', borderWidth: 5,}}
           />
         </View>
-        <Text style={{marginHorizontal: 0, marginVertical: "7%", fontSize: 20, textAlign: 'center', width: '100%'}}>{building}</Text>
+        <Text style={{marginHorizontal: 0, marginVertical: "7%", fontSize: 35, textAlign: 'center', width: '100%'}}>{building}</Text>
         <View style={{flexDirection: 'row'}}>
           <View style={styles.button}><Button backgroundColor='#b7a57a'
-            title='casual board'
+            title='CASUAL BOARD'
             tileColor='#fff'
             titleSize={10}
             containerStyle={{marginBottom: 10}}
@@ -108,14 +108,14 @@ function App1({navigation}) {
               })}}/>
           </View>
         <View style={styles.button}><Button backgroundColor='#b7a57a'
-            title='serious board'
+            title='EVENT BOARD'
             tileColor='#fff'
             titleSize={10}
             containerStyle={{
               marginBottom: 24
             }} onPress={() => {
               setVisible(false);
-              navigation.navigate('Serious', {
+              navigation.navigate('Event', {
                 buildingname: buildingserious,
               });}}/>
           </View>
@@ -126,7 +126,7 @@ function App1({navigation}) {
         style={styles.map}
         region={mapRegion}
       >
-          {locdata.map((val, i) => {
+          {locdata.map((val) => {
             return(
               <Marker
                 key={val.id}
@@ -150,7 +150,6 @@ function App1({navigation}) {
               />
             )
           })}
-        {/* <Button title = 'Get Current Location' onPress={userLocation}/> */}
       </MapView>
     </View>
   );
@@ -203,6 +202,9 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: '#4b2e83',
     flexDirection:'row',
+    marginTop: '-2%',
+    width: '30%',
+    height: '200%',
   },
   row: {
     flexDirection: 'row',
@@ -214,12 +216,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '600',
-    color: '#000000'
+    color: '#000000',
   },
   text: {
     fontSize: 16,
     fontWeight: 'normal',
     color: '#000000'
+  },
+  bottom: {
+    marginTop: -20,
+    marginBottom: 15,
   }
 });
 
@@ -245,7 +251,7 @@ export default function MainPage({navigation}) {
         />
       </View>
 
-      <Text style={styles.text}>Your UID is: {user.uid} </Text>
+      <Text style={[styles.text, styles.bottom]}>Your UID is: {user.uid} </Text>
     </View>
   );
 }

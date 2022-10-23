@@ -3,25 +3,15 @@ import {
     StyleSheet,
     Text,
     StatusBar,
-    TouchableWithoutFeedback,
-    Keyboard,
     FlatList,
-    Dimensions,
-    Button,
-    Modal,
-    Image,
-    TouchableOpacity,
-    Animated,
 } from 'react-native';
 import { getFirestore, collection, getDocs, addDoc, Timestamp } from "firebase/firestore";
 import app from '../../../config/firebase';
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect} from 'react'
 import colors from '../misc/colors';
 import RoundIconBtn from './RoundIconBtn';
 import NoteInputModal from './NoteInputModal';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Note from './Note';
-// import app from '../../config/firebase';
 import { getAuth } from 'firebase/auth';
 
 
@@ -75,11 +65,12 @@ function NoteScreen ({navigation, route}) {
         navigation.navigate('NoteDetail', { note });
       };
 
+    const building = buildingname.substr(0,3) + ' Event Board';
     return (
           <>
-          <StatusBar barStyle='dark-content' backgroundColor={colors.LIGHT}/>
+          <StatusBar barStyle='dark-content' backgroundColor={colors.DARK}/>
           <View style = {styles.container}>
-            <Text style={styles.header}>Hello</Text>
+            <Text style={styles.header}>Welcome to {building}</Text>
             <FlatList
                 data={list}
                 numColumns={2}
@@ -107,7 +98,9 @@ function NoteScreen ({navigation, route}) {
 
 const styles = StyleSheet.create({
     header: {
-      fontSize: 25,
+      marginHorizontal: 10,
+      marginVertical: 30,
+      fontSize: 35,
       fontWeight: 'bold',
     },
     container: {

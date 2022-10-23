@@ -27,7 +27,7 @@ export default function NoteInputModal ({ visible, onClose, onSubmit }) {
 
     const handleSubmit = () => {
         if (!title.trim() && !desc.trim()) return onClose();
-    
+
         //if (isEdit) {
           //onSubmit(title, desc, Date.now());
         //} else {
@@ -37,7 +37,7 @@ export default function NoteInputModal ({ visible, onClose, onSubmit }) {
         //}
         onClose();
       };
-    
+
     const closeModal = () => {
         //if (!isEdit) {
           setTitle('');
@@ -85,7 +85,7 @@ export default function NoteInputModal ({ visible, onClose, onSubmit }) {
         </TouchableWithoutFeedback>
       </Modal>
     </>
-    
+
   )
 }
 
@@ -97,13 +97,15 @@ const styles = StyleSheet.create({
     input: {
       borderBottomWidth: 2,
       borderBottomColor: colors.PRIMARY,
-      fontSize: 20,
+      fontSize: 30,
       color: colors.DARK,
+      fontWeight: 'bold',
+      textAlign: 'center',
     },
     title: {
       height: 40,
+      marginTop: 20,
       marginBottom: 15,
-      fontWeight: 'bold',
     },
     desc: {
       height: 100,

@@ -1,21 +1,19 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import NoteScreen from '../components/seriousboard/screens/NoteScreen';
 import NoteDetail from '../components/seriousboard/screens/NoteDetail';
 import App1 from '../components/mainpage/mainpage'
-import SeriousBoard from '../components/seriousboard/seriousboardmain';
 import CasualBoard from '../components/casualboard/casualboardmain';
+import { LogBox } from 'react-native';
 
 const Stack = createNativeStackNavigator();
-
+LogBox.ignoreAllLogs();//Ignore all log notifications
 export default function HomeStack() {
   return (
     <Stack.Navigator headerMode='none'>
       <Stack.Screen name='Home' component={App1} />
-      <Stack.Screen name='Serious' component={NoteScreen} />
+      <Stack.Screen name='Event' component={NoteScreen} />
       <Stack.Screen name='NoteDetail' component={NoteDetail} />
-      {/* <Stack.Screen name='Serious' component={SeriousBoard} /> */}
       <Stack.Screen name='Casual' component={CasualBoard} />
     </Stack.Navigator>
   );
