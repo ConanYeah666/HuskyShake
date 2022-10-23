@@ -10,48 +10,39 @@ import {
   Animated,
   ImageBackground
 } from 'react-native';
-import { getFirestore, collection, getDocs, addDoc, Timestamp, CollectionReference } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, Timestamp } from "firebase/firestore";
 import app from '../../config/firebase';
 import { route, navigation } from '@react-navigation/native';
 import { SwipeableCards, BORDER_RADIUS } from 'react-native-pairs-swipeable-cards';
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect}from 'react';
 import { BottomNavigationTab } from '@ui-kitten/components';
-import { stringLength } from '@firebase/util';
-
 
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
-const initialList = [
-  {id: '',
-    isActive: true,
-    name: '',
-    age: 1,
-    place: '',
-    rate: 1,
-    tags:  ['']
-}]
-var count = 0;
+const initialList = [];
+
+
+
 const read = async (building, list, setList) => {
   const querySnapshot = await getDocs(collection(db, building));
   querySnapshot.forEach((doc) => {
-
     setList(oldList => [...oldList, {
-      id: doc.id + '',
+      id: doc.id,
       isActive: true,
-      name: doc.data().userid + '',
-      age: 5,
-      place: doc.data().title + '',
+      name: doc.data().userid ,
+      age: doc.data().date,
+      place: doc.data().title,
       rate: 64,
-      tags: doc.data().tag + '',
-      Description: doc.data().content + ''
+      tags: doc.data().tag,
+      Description: "If there's any body that could be one of my freind?"
     }]);
 });
 };
 
 function CasualBoard({route}) {
 
-  const [list, setList] = React.useState(initialList);
+const [list, setList] = React.useState(initialList);
   const { buildingname } = route.params;
   // write("test33", "content33", "title33", buildingname);
   useEffect(() => {
@@ -62,22 +53,64 @@ function CasualBoard({route}) {
   }, []);
   // find();
   // read();
-  list = JSON.stringify(list)
+
+  const data = [
+    {
+      id: 'misono',
+      isActive: true,
+      name: 'Kenan Ye',
+      age: 20,
+      place: 'CSE2',
+      rate: 64,
+      tags: ['Find Partner', 'Looking for friend'],
+      Description: "If there's any body that could be one of my freind?"
+    },
+    {
+      id: 'arisa',
+      isActive: true,
+      name: 'Allan Ji',
+      age: 21,
+      place: 'HUB',
+      rate: 64,
+      tags: ['Find partner', 'CSE446', 'Machine Learning'],
+      Description: "I'm looking for a partner to work on CSE 446! It's too hard for me!'"
+    },
+    {
+      id: 'sasaki',
+      isActive: true,
+      name: 'Caleb Huang',
+      age: 22,
+      place: 'HUB',
+      rate: 64,
+      tags: ['DubHack22', '24 hour work'],
+      Description: "Dubhack22 is coming! I'm ready to work 24 hours! Anyone interested?"
+    },
+    {
+      id: 'tsugumi',
+      isActive: true,
+      name: 'Anonymous',
+      age: 21,
+      place: 'ODE',
+      rate: 64,
+      tags: ['Work together', 'Trouble with HW'],
+      Description: "If there's any body could help me with the homework?"
+    },
+  ];
+
   return(
     <View style={styles.container}>
-      <SwipeableCards 
-        data={list}
+      <SwipeableCards
+        data={data}
         onLike={() => console.log('Like!')}
         onSkip={() => console.log('Skip')}
         onLikeWithMessage = {() => console.log("Post") }
         renderItem={(item, index) => (
           <View style = { { width: '100%', height: '100%', backgroundColor: '#4b2e83'}}>
-            {console.log(item)}
             <Text style={{
                   color: '#b7a57a',
                   fontWeight: 'bold',
                   fontSize: 32,
-                  marginVertical: '50%',
+                  marginVertical: '30%',
                   marginHorizontal: '5%'
                 }}>{item.Description} </Text>
             <View
