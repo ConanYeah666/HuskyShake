@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, Button as RNButton, Image } from 'react-native';
 import { Button, InputText, IconButton, ErrorMessage } from '../../utils';
 import app from '../../config/firebase';
-import { getFirestore,  collection, getDocs  } from "firebase/firestore";
+import { getFirestore,  collection, getDocs, addDoc  } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 const auth = getAuth(app);
@@ -13,6 +13,7 @@ const db = getFirestore(app);
 export default function SignupPage({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
   const [signupError, setSignupError] = useState('');
@@ -30,9 +31,18 @@ export default function SignupPage({ navigation }) {
 
   const onHandleSignup = async () => {
     try {
-      
-      if (email !== '' && password !== '') {
+      if (email !== '' && password !== '' && userName !== '') {
         await createUserWithEmailAndPassword(auth, email, password);
+        try {
+          const docRef = await addDoc(collection(db, "users"), {
+            email: email,
+            password: password,
+            userName: userName
+          });
+          console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
       }
     } catch (error) {
       setSignupError(error.message);
@@ -60,6 +70,21 @@ export default function SignupPage({ navigation }) {
         autoFocus={true}
         value={email}
         onChangeText={text => setEmail(text)}
+      />
+      <InputText
+        inputStyle={{
+          fontSize: 14
+        }}
+        containerStyle={{
+          backgroundColor: '#fff',
+          marginBottom: 20
+        }}
+        leftIcon='user'
+        placeholder='Enter UserName'
+        autoCapitalize='none'
+        autoFocus={true}
+        value={userName}
+        onChangeText={text => setUserName(text)}
       />
       <InputText
         inputStyle={{
