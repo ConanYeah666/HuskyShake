@@ -94,25 +94,25 @@ function App1({navigation}) {
         </View>
         <Text style={{marginHorizontal: 0, marginVertical: "7%", fontSize: 20, textAlign: 'center', width: '100%'}}>{building}</Text>
         <View style={{flexDirection: 'row'}}>
-          <View style={styles.button}><Button title='Casual Board' onPress={() => {
-                                                                                    setVisible(false);
-                                                                                    navigation.navigate('Casual')}}/></View>
-          <View style={styles.button}><Button title='Serious Board' onPress={() => {
-                                                                                    setVisible(false);
-                                                                                    navigation.navigate('Serious')}}/></View>
           <View style={styles.button}><Button backgroundColor='#b7a57a'
-        title='casual board'
-        tileColor='#fff'
-        titleSize={10}
-        containerStyle={{marginBottom: 10}}
-        onPress={userLocation}/></View>
+            title='casual board'
+            tileColor='#fff'
+            titleSize={10}
+            containerStyle={{marginBottom: 10}}
+            onPress={() => {
+              setVisible(false);
+              navigation.navigate('Casual')}}/>
+          </View>
         <View style={styles.button}><Button backgroundColor='#b7a57a'
-        title='serious board'
-        tileColor='#fff'
-        titleSize={10}
-        containerStyle={{
-          marginBottom: 24
-        }} onPress={userLocation}/></View>
+            title='serious board'
+            tileColor='#fff'
+            titleSize={10}
+            containerStyle={{
+              marginBottom: 24
+            }} onPress={() => {
+              setVisible(false);
+              navigation.navigate('Serious')}}/>
+          </View>
         </View>
       </ModalPoup>
       {/* Map */}
@@ -227,7 +227,6 @@ export default function MainPage({navigation}) {
     <View style={styles.container}>
       <StatusBar style='dark-content' />
       <App1 navigation={navigation}/>
-      <App1/>
       <View style={styles.row}>
         <Text style={styles.title}>Welcome {user.email}!</Text>
         <IconButton
