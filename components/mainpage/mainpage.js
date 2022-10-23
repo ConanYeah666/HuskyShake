@@ -105,7 +105,6 @@ function App1({navigation}) {
               setVisible(false);
               navigation.navigate('Casual', {
                 buildingname: buildingcasual,
-                otherParam: 'anything you want here',
               })}}/>
           </View>
         <View style={styles.button}><Button backgroundColor='#b7a57a'
@@ -118,7 +117,6 @@ function App1({navigation}) {
               setVisible(false);
               navigation.navigate('Serious', {
                 buildingname: buildingserious,
-                otherParam: 'anything you want here',
               });}}/>
           </View>
         </View>
