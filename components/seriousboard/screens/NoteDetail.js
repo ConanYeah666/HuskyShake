@@ -17,23 +17,32 @@ import colors from '../misc/colors';
 export default function NoteDetail(props) {
     const {note} = props.route.params;
   return (
+    <View backgroundColor = '#DCDCDC'>
     <ScrollView contentContainerStyle={styles.container}>
       {/* <Text style={styles.time}>{note}</Text> */}
       <Text style={styles.title}>{note.title}</Text>
       <Text style={styles.desc}>{note.content}</Text>
     </ScrollView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
       // flex: 1,
-      borderWidth: 5,
+      borderWidth: 10,
+      height : '80%',
+      marginHorizontal: '25%',
+      marginVertical: '5%',
+      alignItems:'center',
+      width : '50%',
+      backgroundColor:'#FFFFE0',
       borderRadius: 20,
-      paddingHorizontal: 15,
+      paddingHorizontal: '5%',
     },
     title: {
       fontSize: 50,
+      marginVertical: '7%',
       color: colors.PRIMARY,
       fontWeight: 'bold',
       textAlign: 'center',

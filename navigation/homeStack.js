@@ -12,10 +12,47 @@ LogBox.ignoreAllLogs();//Ignore all log notifications
 export default function HomeStack() {
   return (
     <Stack.Navigator headerMode='none'>
-      <Stack.Screen name='Home' component={userInterface} />
-      <Stack.Screen name='Event' component={NoteScreen} />
-      <Stack.Screen name='NoteDetail' component={NoteDetail} />
-      <Stack.Screen name='Casual' component={CasualBoard} />
+      <Stack.Screen name='Home' component={userInterface}  
+      options={{
+          title: 'My home',
+          headerStyle: {
+            backgroundColor: '#85754d',
+          },
+          headerTintColor: '#DCDCDC',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}/>
+      <Stack.Screen name='Event' component={NoteScreen} options={{
+          title: 'My home',
+          headerStyle: {
+            backgroundColor: '#85754d',
+          },
+          headerTintColor: '#DCDCDC',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}/>
+      <Stack.Screen name='NoteDetail' component={NoteDetail} options={{
+          title: 'My home',
+          headerStyle: {
+            backgroundColor: '#85754d',
+          },
+          headerTintColor: '#DCDCDC',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}/>
+      <Stack.Screen name='Casual' component={CasualBoard} options={{
+          title: 'My home',
+          headerStyle: {
+            backgroundColor: '#85754d',
+          },
+          headerTintColor: '#DCDCDC',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}/>
     </Stack.Navigator>
   );
 }

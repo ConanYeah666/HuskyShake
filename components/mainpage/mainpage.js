@@ -98,7 +98,7 @@ function App1({navigation}) {
         <View style={{flexDirection: 'row'}}>
           <View style={styles.button}><Button backgroundColor='#b7a57a'
             title='CASUAL BOARD'
-            tileColor='#fff'
+            color = '#fff'
             titleSize={10}
             containerStyle={{marginBottom: 10}}
             onPress={() => {
@@ -109,7 +109,7 @@ function App1({navigation}) {
           </View>
         <View style={styles.button}><Button backgroundColor='#b7a57a'
             title='EVENT BOARD'
-            tileColor='#fff'
+            color = '#fff'
             titleSize={10}
             containerStyle={{
               marginBottom: 24
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     width: '80%',
     height: '80%',
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#DCDCDC',
     paddingHorizontal: 20,
     paddingVertical: 30,
     borderRadius: 40,
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#DCDCDC',
     alignItems: 'center',
     justifyContent: 'center',
   },

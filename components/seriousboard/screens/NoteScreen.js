@@ -76,7 +76,8 @@ function NoteScreen ({navigation, route}) {
                 numColumns={2}
                 columnWrapperStyle={{
                     justifyContent: 'space-between',
-                    marginBottom: 15,
+                    marginBottom: 12,
+                    marginHorizontal: '5%'
                 }}
                 keyExtractor={item => list.data}
                 renderItem={({ item }) => <Note onPress={() => openNote(item)} item = {item}/>}
@@ -101,10 +102,12 @@ const styles = StyleSheet.create({
       marginHorizontal: 10,
       marginVertical: 30,
       fontSize: 35,
+      alignItems: 'center',
       fontWeight: 'bold',
     },
     container: {
       paddingHorizontal: 20,
+      backgroundColor : '#DCDCDC',
       flex: 1,
       zIndex: 1,
     },
@@ -122,7 +125,8 @@ const styles = StyleSheet.create({
     },
     addBtn: {
       position: 'absolute',
-      right: 15,
+      marginHorizontal: '0%',
+      left: '90%',
       bottom: 50,
       zIndex: 1,
     },
