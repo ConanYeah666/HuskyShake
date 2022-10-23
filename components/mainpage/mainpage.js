@@ -71,7 +71,8 @@ function App1({navigation}) {
 
   const [visible, setVisible] = React.useState(false);
   const [building, setBuilding] = React.useState("");
-  const [buildingshort, setBuildingshort] = React.useState("");
+  const [buildingserious, setBuildingserious] = React.useState("");
+  const [buildingcasual, setBuildingcasual] = React.useState("");
   const [buildingimg, setBuildingimg] = React.useState("");
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -102,7 +103,10 @@ function App1({navigation}) {
             containerStyle={{marginBottom: 10}}
             onPress={() => {
               setVisible(false);
-              navigation.navigate('Casual')}}/>
+              navigation.navigate('Casual', {
+                buildingname: buildingcasual,
+                otherParam: 'anything you want here',
+              })}}/>
           </View>
         <View style={styles.button}><Button backgroundColor='#b7a57a'
             title='serious board'
@@ -113,7 +117,7 @@ function App1({navigation}) {
             }} onPress={() => {
               setVisible(false);
               navigation.navigate('Serious', {
-                buildingname: buildingshort,
+                buildingname: buildingserious,
                 otherParam: 'anything you want here',
               });}}/>
           </View>
@@ -135,7 +139,8 @@ function App1({navigation}) {
                   setVisible(true);
                   setBuildingimg(val.buildingImg);
                   setBuilding(val.title);
-                  setBuildingshort(val.short)
+                  setBuildingserious(val.serious);
+                  setBuildingcasual(val.casual);
                   setMapRegeion({
                     latitude: val.coords.latitude,
                     longitude: val.coords.longitude,
