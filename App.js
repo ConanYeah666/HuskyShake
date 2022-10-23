@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { AuthenticatedUserProvider } from './navigation/authenticatedUserProvider';
 import RootNavigator from './navigation/rootNavigation';
 

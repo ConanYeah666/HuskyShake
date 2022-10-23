@@ -1,8 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react'
 import MapView, {Marker} from 'react-native-maps'
 import { StatusBar } from 'expo-status-bar';
-import * as Location from 'expo-location'
 import {locdata} from './locdata'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   View,
   StyleSheet,
@@ -19,26 +20,10 @@ import { AuthenticatedUserContext } from '../../navigation/authenticatedUserProv
 import { getAuth ,signOut } from 'firebase/auth';
 import { IconButton } from '../../utils';
 
-
-
 const cancel = require('./img/cancel.png')
 
 const auth = getAuth(app);
 
-// get user current location and update map
-const userLocation = async () => {
-  let {status} = await Location.requestForegroundPermissionsAsync();
-  if (status !== 'granted') {
-    setErrorMsg('Permission to access location denied');
-  }
-  let location = await Location.getCurrentPositionAsync({enableHighAccuracy:true});
-  setMapRegeion({
-    latitude: location.coords.latitude,
-    longitude: location.coords.longitude,
-    latitudeDelta: 0.006,
-    longitudeDelta: 0.006,
-  });
-}
 
 // the model
 const ModalPoup = ({visible, children}) => {
@@ -71,13 +56,12 @@ const ModalPoup = ({visible, children}) => {
           style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
           {children}
         </Animated.View>
-        <Text>Hi</Text>
       </View>
     </Modal>
   );
 };
 
-const App1 = () => {
+function App1({navigation}) {
   const [mapRegion, setMapRegeion] = useState({
     latitude: 47.65440627742146,
     longitude: -122.30476957834502,
@@ -110,8 +94,12 @@ const App1 = () => {
             <Text style={{marginHorizontal: 19, marginVertical: 10, fontSize: 30, textAlign: 'left', width: '50%'}}>{building}</Text>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <View style={styles.button}><Button title='Casual Board' onPress={userLocation}/></View>
-          <View style={styles.button}><Button title='Serious Board' onPress={userLocation}/></View>
+          <View style={styles.button}><Button title='Casual Board' onPress={() => {
+                                                                                    setVisible(false);
+                                                                                    navigation.navigate('Casual')}}/></View>
+          <View style={styles.button}><Button title='Serious Board' onPress={() => {
+                                                                                    setVisible(false);
+                                                                                    navigation.navigate('Serious')}}/></View>
         </View>
       </ModalPoup>
       {/* Map */}
@@ -119,7 +107,7 @@ const App1 = () => {
         style={styles.map}
         region={mapRegion}
       >
-          {/* {locdata.map((val, i) => {
+          {locdata.map((val, i) => {
             return(
               <Marker
                 key={val.id}
@@ -133,13 +121,14 @@ const App1 = () => {
                   setMapRegeion({
                     latitude: val.coords.latitude,
                     longitude: val.coords.longitude,
+                    latitudeDelta: 0.006,
+                    longitudeDelta: 0.006,
                   });
                 }}
 
               />
             )
-          })} */}
-        {/* <Button title = 'Get Current Location' onPress={userLocation}/> */}
+          })}
       </MapView>
     </View>
   );
@@ -176,6 +165,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   map: {
+    // width: '50%',
+    // height: '50%'
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
   },
@@ -200,16 +191,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '600',
-    color: '#fff'
+    color: '#000000'
   },
   text: {
     fontSize: 16,
     fontWeight: 'normal',
-    color: '#fff'
+    color: '#000000'
   }
 });
 
-export default function MainPage() {
+export default function MainPage({navigation}) {
   const { user } = useContext(AuthenticatedUserContext);
   const handleSignOut = async () => {
     signOut(auth).then(() => {
@@ -220,17 +211,17 @@ export default function MainPage() {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
+      <App1 navigation={navigation}/>
       <View style={styles.row}>
         <Text style={styles.title}>Welcome {user.email}!</Text>
-        <App1/>
         <IconButton
           name='logout'
           size={24}
-          color='#fff'
+          color='#000000'
           onPress={handleSignOut}
         />
       </View>
-      
+
       <Text style={styles.text}>Your UID is: {user.uid} </Text>
     </View>
   );
