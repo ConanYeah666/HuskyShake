@@ -1,5 +1,5 @@
 # Welcome to HuskyShake
-![HuskyShake logo](/photo/huskyshake.png)
+<img src="/photo/huskyshake.png" alt="HuskyShake logo" width="400"/>
 
 ## Problem we want to solve
 The COVID-19 virus has changed our life on a large scale in the past few years. As international students, every Brute Force TLE team member experienced remote university classes in different time zones for a whole year. We lost connection with UW folks and missed lots of opportunities. Those experiences motivate us to build a platform for every UW member to rebuild their relationship with each other.
